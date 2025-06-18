@@ -1,4 +1,5 @@
 Georgi Raychev 0MI0600451 SE 1ST GROUP
+git: https://github.com/GeorgiRaichev/HotelApp
 
 # Hotel Managing System
 
@@ -61,4 +62,3 @@ The **Hotel Managing System** is a fully-featured console application written in
 - No STL or third-party libraries
 - Input/Output: **Standard Console I/O**
 - Persistence: **Text files** (`rooms.txt`, `guests.txt`, `reservations.txt`, `users.txt`, `logs.txt`)
-
