@@ -138,6 +138,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="MyVector.hpp" />
+    <ClCompile Include="Reservation.cpp" />
+    <ClCompile Include="ReservationManager.cpp" />
+    <ClCompile Include="ReservationManager.h" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomManager.cpp" />
     <ClCompile Include="SingleRoom.cpp" />
@@ -155,6 +158,7 @@
     <ClInclude Include="LuxuryRoom.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="MyVector.h" />
+    <ClInclude Include="Reservation.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomManager.h" />
     <ClInclude Include="SingleRoom.h" />

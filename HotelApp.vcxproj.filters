@@ -64,6 +64,15 @@
     <ClCompile Include="GuestManager.cpp">
       <Filter>managers</Filter>
     </ClCompile>
+    <ClCompile Include="Reservation.cpp">
+      <Filter>models</Filter>
+    </ClCompile>
+    <ClCompile Include="ReservationManager.h">
+      <Filter>managers</Filter>
+    </ClCompile>
+    <ClCompile Include="ReservationManager.cpp">
+      <Filter>managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyString.h">
@@ -110,6 +119,9 @@
     </ClInclude>
     <ClInclude Include="GuestManager.h">
       <Filter>managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Reservation.h">
+      <Filter>models</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
