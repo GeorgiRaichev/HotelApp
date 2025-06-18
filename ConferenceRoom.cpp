@@ -22,7 +22,6 @@ Room* ConferenceRoom::clone() const {
 }
 
 void ConferenceRoom::print(std::ostream& os) const {
-    os << getType().c_str() << ",";
     Room::print(os);
 }
 

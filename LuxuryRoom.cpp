@@ -22,7 +22,6 @@ Room* LuxuryRoom::clone() const {
 }
 
 void LuxuryRoom::print(std::ostream& os) const {
-    os << getType().c_str() << ",";
     Room::print(os);
 }
 

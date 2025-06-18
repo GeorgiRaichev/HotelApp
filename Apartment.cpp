@@ -22,7 +22,6 @@ Room* Apartment::clone() const {
 }
 
 void Apartment::print(std::ostream& os) const {
-    os << getType().c_str() << ",";
     Room::print(os);
 }
 

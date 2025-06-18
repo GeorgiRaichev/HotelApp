@@ -1,0 +1,2 @@
+Room #1 [single] - Status: free - Price: 100
+Room #5 [luxury] - Status: free - Price: 500

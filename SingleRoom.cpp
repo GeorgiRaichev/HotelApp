@@ -29,9 +29,9 @@ Room* SingleRoom::clone() const {
 }
 
 void SingleRoom::print(std::ostream& os) const {
-    os << getType().c_str() << ",";
     Room::print(os); 
 }
+
 
 void SingleRoom::read(std::istream& is) {
     Room::read(is);

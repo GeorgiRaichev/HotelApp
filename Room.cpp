@@ -22,7 +22,10 @@ void Room::setStatus(const MyString& newStatus) { status = newStatus; }
 void Room::setBasePrice(double newPrice) { basePrice = newPrice; }
 
 void Room::print(std::ostream& os) const {
-    os << roomNumber << ',' << status.c_str() << ',' << basePrice << ',';
+    os << "Room #" << roomNumber
+        << " [" << getType().c_str() << "]"
+        << " - Status: " << status.c_str()
+        << " - Price: " << basePrice;
 }
 
 void Room::read(std::istream& is) {

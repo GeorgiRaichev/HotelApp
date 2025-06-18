@@ -22,7 +22,6 @@ Room* DoubleRoom::clone() const {
 }
 
 void DoubleRoom::print(std::ostream& os) const {
-    os << getType().c_str() << ",";
     Room::print(os);
 }
 
