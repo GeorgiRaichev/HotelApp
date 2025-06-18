@@ -1,3 +1,5 @@
+Georgi Raychev 0MI0600451 SE 1ST GROUP
+
 # Hotel Managing System
 
 **Object-Oriented Programming Course Project**  
