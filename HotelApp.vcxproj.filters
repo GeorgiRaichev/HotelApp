@@ -58,6 +58,12 @@
     <ClCompile Include="RoomManager.cpp">
       <Filter>managers</Filter>
     </ClCompile>
+    <ClCompile Include="Guest.cpp">
+      <Filter>models</Filter>
+    </ClCompile>
+    <ClCompile Include="GuestManager.cpp">
+      <Filter>managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyString.h">
@@ -97,6 +103,12 @@
       <Filter>models</Filter>
     </ClInclude>
     <ClInclude Include="RoomManager.h">
+      <Filter>managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Guest.h">
+      <Filter>models</Filter>
+    </ClInclude>
+    <ClInclude Include="GuestManager.h">
       <Filter>managers</Filter>
     </ClInclude>
   </ItemGroup>

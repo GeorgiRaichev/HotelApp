@@ -2,6 +2,11 @@
 #include <iostream>
 #include <cstring>
 #include <iomanip>
+#include "SingleRoom.h"
+#include "DoubleRoom.h"
+#include "LuxuryRoom.h"
+#include "ConferenceRoom.h"
+#include "Apartment.h"
 
 Room::Room() : roomNumber(0), status("free"), basePrice(0.0) {}
 
@@ -34,8 +39,32 @@ std::ostream& operator<<(std::ostream& os, const Room& room) {
     return os;
 }
 
-std::istream& operator>>(std::istream& is, Room*& room) { 
-    std::cerr << "Error: Cannot deserialize abstract Room. Use derived class.\n";
-    is.setstate(std::ios::failbit);
+std::istream& operator>>(std::istream& is, Room*& room) {
+    char typeBuf[32];
+    is.getline(typeBuf, 32, ',');
+
+    Room* temp = nullptr;
+
+    if (strcmp(typeBuf, "single") == 0) temp = new SingleRoom();
+    else if (strcmp(typeBuf, "double") == 0) temp = new DoubleRoom();
+    else if (strcmp(typeBuf, "luxury") == 0) temp = new LuxuryRoom();
+    else if (strcmp(typeBuf, "conference") == 0) temp = new ConferenceRoom();
+    else if (strcmp(typeBuf, "apartment") == 0) temp = new Apartment();
+    else {
+        std::cerr << "Unknown room type: " << typeBuf << std::endl;
+        is.setstate(std::ios::failbit);
+        return is;
+    }
+
+    try {
+        temp->read(is);
+        room = temp;
+    }
+    catch (...) {
+        std::cerr << "Failed to read room.\n";
+        delete temp;
+        is.setstate(std::ios::failbit);
+    }
+
     return is;
 }
