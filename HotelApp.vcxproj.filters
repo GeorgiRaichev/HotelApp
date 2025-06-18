@@ -43,6 +43,21 @@
     <ClCompile Include="SingleRoom.cpp">
       <Filter>models</Filter>
     </ClCompile>
+    <ClCompile Include="DoubleRoom.cpp">
+      <Filter>models</Filter>
+    </ClCompile>
+    <ClCompile Include="LuxuryRoom.cpp">
+      <Filter>models</Filter>
+    </ClCompile>
+    <ClCompile Include="ConferenceRoom.cpp">
+      <Filter>models</Filter>
+    </ClCompile>
+    <ClCompile Include="Apartment.cpp">
+      <Filter>models</Filter>
+    </ClCompile>
+    <ClCompile Include="RoomManager.cpp">
+      <Filter>managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyString.h">
@@ -68,6 +83,21 @@
     </ClInclude>
     <ClInclude Include="SingleRoom.h">
       <Filter>models</Filter>
+    </ClInclude>
+    <ClInclude Include="DoubleRoom.h">
+      <Filter>models</Filter>
+    </ClInclude>
+    <ClInclude Include="LuxuryRoom.h">
+      <Filter>models</Filter>
+    </ClInclude>
+    <ClInclude Include="ConferenceRoom.h">
+      <Filter>models</Filter>
+    </ClInclude>
+    <ClInclude Include="Apartment.h">
+      <Filter>models</Filter>
+    </ClInclude>
+    <ClInclude Include="RoomManager.h">
+      <Filter>managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -128,21 +128,31 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ActionLogger.cpp" />
+    <ClCompile Include="Apartment.cpp" />
+    <ClCompile Include="ConferenceRoom.cpp" />
     <ClCompile Include="Date.cpp" />
+    <ClCompile Include="DoubleRoom.cpp" />
+    <ClCompile Include="LuxuryRoom.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyString.cpp" />
     <ClCompile Include="MyVector.hpp" />
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="RoomManager.cpp" />
     <ClCompile Include="SingleRoom.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="UserManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ActionLogger.h" />
+    <ClInclude Include="Apartment.h" />
+    <ClInclude Include="ConferenceRoom.h" />
     <ClInclude Include="Date.h" />
+    <ClInclude Include="DoubleRoom.h" />
+    <ClInclude Include="LuxuryRoom.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="MyVector.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="RoomManager.h" />
     <ClInclude Include="SingleRoom.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserManager.h" />
