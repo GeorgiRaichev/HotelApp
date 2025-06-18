@@ -1,0 +1,2 @@
+[2025-06-18 17:43:50] (Role: manager) admin: Logged in
+[2025-06-18 17:43:59] (Role: manager) admin: Exited system

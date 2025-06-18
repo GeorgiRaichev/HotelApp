@@ -13,14 +13,22 @@ void ReservationManager::loadReservations() {
     reservations = MyVector<Reservation>();
     Reservation r;
 
-    while (in >> r) {
-        reservations.push_back(r);
-        if (r.getReservationID() >= nextID)
-            nextID = r.getReservationID() + 1;
+    while (in.peek() != EOF) {
+        if (in >> r) {
+            reservations.push_back(r);
+            if (r.getReservationID() >= nextID)
+                nextID = r.getReservationID() + 1;
+        }
+        else {
+            std::cerr << "Error reading reservation: Invalid format or date – skipping line.\n";
+            in.clear();
+            in.ignore(1024, '\n');
+        }
     }
 
     in.close();
 }
+
 
 void ReservationManager::saveReservations() const {
     std::ofstream out(filePath.c_str());

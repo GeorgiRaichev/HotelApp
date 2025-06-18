@@ -5,22 +5,31 @@ GuestManager::GuestManager(const char* file) : filePath(file), nextID(1) {}
 
 void GuestManager::loadGuests() {
     std::ifstream in(filePath.c_str());
+
     if (!in.is_open()) {
         std::cerr << "Could not open guest file for reading: " << filePath.c_str() << std::endl;
         return;
     }
 
     guests = MyVector<Guest>();
-    Guest g;
+    Guest temp;
 
-    while (in >> g) {
-        guests.push_back(g);
-        if (g.getClientID() >= nextID)
-            nextID = g.getClientID() + 1;
+    while (in.peek() != EOF) {
+        if (in >> temp) {
+            guests.push_back(temp);
+            if (temp.getClientID() >= nextID)
+                nextID = temp.getClientID() + 1;
+        }
+        else {
+            std::cerr << "Error reading guest: skipping invalid line.\n";
+            in.clear();
+            in.ignore(1024, '\n');
+        }
     }
 
     in.close();
 }
+
 
 void GuestManager::saveGuests() const {
     std::ofstream out(filePath.c_str());

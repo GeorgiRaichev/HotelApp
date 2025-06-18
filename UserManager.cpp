@@ -16,12 +16,20 @@ void UserManager::loadUsers() {
     users = MyVector<User>(); 
     User temp;
 
-    while (in >> temp) {
-        users.push_back(temp);
+    while (in.peek() != EOF) {
+        if (in >> temp) {
+            users.push_back(temp);
+        }
+        else {
+            std::cerr << "Error reading user: skipping invalid line.\n";
+            in.clear();               
+            in.ignore(1024, '\n');  
+        }
     }
 
     in.close();
 }
+
 
 void UserManager::saveUsers() const {
     std::ofstream out(filePath.c_str());

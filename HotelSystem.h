@@ -37,4 +37,17 @@ public:
     void handleShowReservations();
     void handleChangePricingStrategy();
     void handleChangeRoomStatus();
+    void handleViewTotalRevenue();
+    void handleRevenueByRoomType();
+    void handleExportRevenueReport();
+    void handleMostBookedRoom();
+    void handleViewActionLog();
+    void handleCancelReservation();
+    void handleSortedReservations();
+    void handleSortedRevenueByType();
+    void handleFindByID();
+    void handleRevenueForPeriod();
+    void handleRoomsByOccupancy();
+
+	void createDataFiles();
 };
