@@ -69,3 +69,43 @@ std::istream& operator>>(std::istream& is, Date& date) {
 
     return is;
 }
+int Date::dayOfWeek() const {
+    int d = day, m = month, y = year;
+    if (m < 3) {
+        m += 12;
+        y--;
+    }
+    int k = y % 100;
+    int j = y / 100;
+    int h = (d + (13 * (m + 1)) / 5 + k + k / 4 + j / 4 + 5 * j) % 7;
+    return ((h + 6) % 7);
+}
+Date& Date::operator++() {
+    static const int daysInMonth[] = { 0, 31, 28, 31, 30, 31, 30,
+                                       31, 31, 30, 31, 30, 31 };
+
+    int dim = daysInMonth[month];
+
+    if (month == 2 && ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))) {
+        dim = 29;
+    }
+
+    ++day;
+    if (day > dim) {
+        day = 1;
+        ++month;
+        if (month > 12) {
+            month = 1;
+            ++year;
+        }
+    }
+
+    return *this;
+}
+Date Date::operator++(int) {
+    Date temp = *this;
+    ++(*this); 
+    return temp;
+}
+
+

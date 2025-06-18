@@ -49,7 +49,15 @@ void HotelSystem::start() {
 	while (!currentUser) {
 		std::cout << "1. Login\n2. Register\n0. Exit\n> ";
 		int choice;
-		std::cin >> choice;
+
+		if (!(std::cin >> choice)) {
+			std::cin.clear(); 
+			std::cin.ignore(1024, '\n');
+			std::cout << "Invalid input. Please enter a number (0–2).\n";
+			continue;
+		}
+
+		std::cin.ignore(); 
 
 		if (choice == 1) {
 			MyString username, password;
@@ -86,10 +94,8 @@ void HotelSystem::start() {
 			std::exit(0);
 		}
 		else {
-			std::cout << "Invalid option.\n";
+			std::cout << "Invalid choice. Try again.\n";
 		}
-
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	}
 }
 
@@ -171,7 +177,6 @@ void HotelSystem::runCommand(int command) {
 	}
 }
 
-
 void HotelSystem::handleAddRoom() {
 	if (!hasAccess("manager")) {
 		std::cout << "Access denied.\n";
@@ -182,14 +187,49 @@ void HotelSystem::handleAddRoom() {
 	int number;
 	double price;
 
-	std::cout << "Enter room type (single/double/luxury/conference/apartment): ";
-	std::cin >> typeBuf;
+	while (true) {
+		std::cout << "Enter room type (single/double/luxury/conference/apartment): ";
+		std::cin >> typeBuf;
 
-	std::cout << "Enter room number: ";
-	std::cin >> number;
+		if (
+			strcmp(typeBuf, "single") == 0 ||
+			strcmp(typeBuf, "double") == 0 ||
+			strcmp(typeBuf, "luxury") == 0 ||
+			strcmp(typeBuf, "conference") == 0 ||
+			strcmp(typeBuf, "apartment") == 0
+			) {
+			break;
+		}
+		std::cout << "Invalid room type. Try again.\n";
+	}
 
-	std::cout << "Enter base price: ";
-	std::cin >> price;
+	while (true) {
+		std::cout << "Enter room number: ";
+		std::cin >> number;
+
+		if (std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::cout << "Invalid input. Please enter a valid room number.\n";
+		}
+		else {
+			break;
+		}
+	}
+
+	while (true) {
+		std::cout << "Enter base price: ";
+		std::cin >> price;
+
+		if (std::cin.fail() || price < 0) {
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::cout << "Invalid input. Please enter a valid non-negative price.\n";
+		}
+		else {
+			break;
+		}
+	}
 
 	Room* room = nullptr;
 
@@ -203,10 +243,6 @@ void HotelSystem::handleAddRoom() {
 		room = new ConferenceRoom(number, "free", price);
 	else if (strcmp(typeBuf, "apartment") == 0)
 		room = new Apartment(number, "free", price);
-	else {
-		std::cout << "Invalid room type.\n";
-		return;
-	}
 
 	if (roomManager.addRoom(room)) {
 		std::cout << "Room added successfully.\n";
@@ -219,6 +255,8 @@ void HotelSystem::handleAddRoom() {
 	delete room;
 }
 
+
+
 void HotelSystem::handleAddGuest() {
 	if (!hasAccess("receptionist")) {
 		std::cout << "Access denied.\n";
@@ -227,17 +265,52 @@ void HotelSystem::handleAddGuest() {
 
 	char nameBuf[128], phoneBuf[64], emailBuf[128], statusBuf[32];
 
-	std::cout << "Enter guest name: ";
-	std::cin.getline(nameBuf, 128);
+	while (true) {
+		std::cout << "Enter guest name: ";
+		std::cin.getline(nameBuf, 128);
+		if (strlen(nameBuf) == 0) {
+			std::cout << "Name cannot be empty. Try again.\n";
+		}
+		else {
+			break;
+		}
+	}
 
-	std::cout << "Enter phone: ";
-	std::cin.getline(phoneBuf, 64);
+	while (true) {
+		std::cout << "Enter phone: ";
+		std::cin.getline(phoneBuf, 64);
+		if (strlen(phoneBuf) < 6) {
+			std::cout << "Phone number too short. Try again.\n";
+		}
+		else {
+			break;
+		}
+	}
 
-	std::cout << "Enter email: ";
-	std::cin.getline(emailBuf, 128);
+	while (true) {
+		std::cout << "Enter email: ";
+		std::cin.getline(emailBuf, 128);
+		if (strchr(emailBuf, '@') == nullptr || strchr(emailBuf, '.') == nullptr) {
+			std::cout << "Invalid email format. Try again.\n";
+		}
+		else {
+			break;
+		}
+	}
 
-	std::cout << "Enter status (regular / gold / platinum): ";
-	std::cin.getline(statusBuf, 32);
+	while (true) {
+		std::cout << "Enter status (regular / gold / platinum): ";
+		std::cin.getline(statusBuf, 32);
+
+		if (
+			strcmp(statusBuf, "regular") == 0 ||
+			strcmp(statusBuf, "gold") == 0 ||
+			strcmp(statusBuf, "platinum") == 0
+			) {
+			break;
+		}
+		std::cout << "Invalid status. Please enter one of: regular / gold / platinum\n";
+	}
 
 	if (guestManager.addGuest(nameBuf, phoneBuf, emailBuf, statusBuf)) {
 		std::cout << "Guest added successfully.\n";
@@ -248,6 +321,7 @@ void HotelSystem::handleAddGuest() {
 	}
 }
 
+
 void HotelSystem::handleMakeReservation() {
 	if (!hasAccess("receptionist")) {
 		std::cout << "Access denied.\n";
@@ -257,33 +331,73 @@ void HotelSystem::handleMakeReservation() {
 	int guestID, roomNumber;
 	Date startDate, endDate;
 
-	std::cout << "Enter guest ID: ";
-	std::cin >> guestID;
+	const Guest* guest = nullptr;
+	while (true) {
+		std::cout << "Enter guest ID: ";
+		std::cin >> guestID;
 
-	const Guest* guest = guestManager.findGuestByID(guestID);
-	if (!guest) {
-		std::cout << "Guest not found.\n";
-		return;
+		if (std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::cout << "Invalid input. Please enter a valid guest ID.\n";
+			continue;
+		}
+
+		guest = guestManager.findGuestByID(guestID);
+		if (!guest) {
+			std::cout << "Guest not found. Try again.\n";
+		}
+		else {
+			break;
+		}
 	}
 
-	std::cout << "Enter room number: ";
-	std::cin >> roomNumber;
+	Room* room = nullptr;
+	while (true) {
+		std::cout << "Enter room number: ";
+		std::cin >> roomNumber;
 
-	Room* room = roomManager.findRoom(roomNumber);
-	if (!room) {
-		std::cout << "Room not found.\n";
-		return;
+		if (std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::cout << "Invalid input. Please enter a valid room number.\n";
+			continue;
+		}
+
+		room = roomManager.findRoom(roomNumber);
+		if (!room) {
+			std::cout << "Room not found. Try again.\n";
+		}
+		else {
+			break;
+		}
 	}
 
-	std::cout << "Enter start date (dd.mm.yyyy): ";
-	std::cin >> startDate;
+	while (true) {
+		std::cout << "Enter start date (dd.mm.yyyy): ";
+		std::cin >> startDate;
 
-	std::cout << "Enter end date (dd.mm.yyyy): ";
-	std::cin >> endDate;
+		if (!startDate.isValid()) {
+			std::cout << "Invalid start date. Try again.\n";
+		}
+		else {
+			break;
+		}
+	}
 
-	if (!startDate.isValid() || !endDate.isValid() || !(startDate < endDate)) {
-		std::cout << "Invalid date range.\n";
-		return;
+	while (true) {
+		std::cout << "Enter end date (dd.mm.yyyy): ";
+		std::cin >> endDate;
+
+		if (!endDate.isValid()) {
+			std::cout << "Invalid end date. Try again.\n";
+		}
+		else if (!(startDate < endDate)) {
+			std::cout << "End date must be after start date. Try again.\n";
+		}
+		else {
+			break;
+		}
 	}
 
 	if (!reservationManager.isRoomAvailable(roomNumber, startDate, endDate)) {
@@ -292,8 +406,22 @@ void HotelSystem::handleMakeReservation() {
 	}
 
 	int nights = Reservation(0, 0, 0, startDate, endDate, 0).getNights();
+
 	bool isWeekend = false;
 	bool isHighSeason = false;
+
+	Date current = startDate;
+	while (current <= endDate) {
+		int dow = current.dayOfWeek(); 
+		if (dow == 0 || dow == 6) {
+			isWeekend = true;
+		}
+		if (current.getMonth() == 7 || current.getMonth() == 8) {
+			isHighSeason = true;
+		}
+		++current;
+	}
+
 
 	double price = room->calculatePrice(isWeekend, isHighSeason, nights);
 
@@ -305,6 +433,8 @@ void HotelSystem::handleMakeReservation() {
 		std::cout << "Failed to create reservation.\n";
 	}
 }
+
+
 
 void HotelSystem::handleShowRooms() {
 	std::cout << "\n--- All Rooms ---\n";
@@ -329,11 +459,31 @@ void HotelSystem::handleChangePricingStrategy() {
 
 	int weekendFlag, seasonFlag;
 
-	std::cout << "Enable weekend pricing? (1 = yes, 0 = no): ";
-	std::cin >> weekendFlag;
+	while (true) {
+		std::cout << "Enable weekend pricing? (1 = yes, 0 = no): ";
+		std::cin >> weekendFlag;
 
-	std::cout << "Enable high-season pricing? (1 = yes, 0 = no): ";
-	std::cin >> seasonFlag;
+		if (std::cin.fail() || (weekendFlag != 0 && weekendFlag != 1)) {
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::cout << "Invalid input. Please enter 1 or 0.\n";
+			continue;
+		}
+		break;
+	}
+
+	while (true) {
+		std::cout << "Enable high-season pricing? (1 = yes, 0 = no): ";
+		std::cin >> seasonFlag;
+
+		if (std::cin.fail() || (seasonFlag != 0 && seasonFlag != 1)) {
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::cout << "Invalid input. Please enter 1 or 0.\n";
+			continue;
+		}
+		break;
+	}
 
 	isWeekend = (weekendFlag == 1);
 	isHighSeason = (seasonFlag == 1);
@@ -341,6 +491,7 @@ void HotelSystem::handleChangePricingStrategy() {
 	std::cout << "Pricing strategy updated.\n";
 	logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Changed pricing strategy");
 }
+
 void HotelSystem::handleChangeRoomStatus() {
 	if (!hasAccess("manager")) {
 		std::cout << "Access denied.\n";
@@ -350,12 +501,40 @@ void HotelSystem::handleChangeRoomStatus() {
 	int roomNumber;
 	char statusBuf[64];
 
-	std::cout << "Enter room number: ";
-	std::cin >> roomNumber;
-	std::cin.ignore();
+	while (true) {
+		std::cout << "Enter room number: ";
+		std::cin >> roomNumber;
 
-	std::cout << "Enter new status (free / reserved / under_maintenance): ";
-	std::cin.getline(statusBuf, 64);
+		if (std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::cout << "Invalid input. Please enter a valid room number.\n";
+			continue;
+		}
+
+		if (!roomManager.findRoom(roomNumber)) {
+			std::cout << "Room not found. Try again.\n";
+			continue;
+		}
+
+		std::cin.ignore();
+		break;
+	}
+
+	while (true) {
+		std::cout << "Enter new status (free / reserved / under_maintenance): ";
+		std::cin.getline(statusBuf, 64);
+
+		if (
+			strcmp(statusBuf, "free") == 0 ||
+			strcmp(statusBuf, "reserved") == 0 ||
+			strcmp(statusBuf, "under_maintenance") == 0
+			) {
+			break;
+		}
+
+		std::cout << "Invalid status. Please enter one of: free / reserved / under_maintenance\n";
+	}
 
 	if (roomManager.changeRoomStatus(roomNumber, statusBuf)) {
 		std::cout << "Room status updated successfully.\n";
@@ -365,6 +544,7 @@ void HotelSystem::handleChangeRoomStatus() {
 		std::cout << "Failed to update room status.\n";
 	}
 }
+
 void HotelSystem::handleViewTotalRevenue() {
 	if (!hasAccess("accountant")) {
 		std::cout << "Access denied.\n";
@@ -374,13 +554,22 @@ void HotelSystem::handleViewTotalRevenue() {
 	double total = 0.0;
 	const MyVector<Reservation>& all = reservationManager.getAllReservations();
 
+	if (all.getSize() == 0) {
+		std::cout << "No reservations found. Revenue is 0.\n";
+		logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed total revenue (0 reservations)");
+		return;
+	}
+
 	for (size_t i = 0; i < all.getSize(); i++) {
 		total += all[i].getTotalPrice();
 	}
 
+	std::cout << std::fixed << std::setprecision(2);
 	std::cout << "Total revenue: " << total << "\n";
+
 	logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed total revenue");
 }
+
 void HotelSystem::handleRevenueByRoomType() {
 	if (!hasAccess("accountant")) {
 		std::cout << "Access denied.\n";
@@ -389,6 +578,12 @@ void HotelSystem::handleRevenueByRoomType() {
 
 	double single = 0, dbl = 0, lux = 0, conf = 0, apt = 0;
 	const MyVector<Reservation>& all = reservationManager.getAllReservations();
+
+	if (all.getSize() == 0) {
+		std::cout << "No reservations found. Revenue by type is zero.\n";
+		logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed revenue by room type (0 reservations)");
+		return;
+	}
 
 	for (size_t i = 0; i < all.getSize(); i++) {
 		const Reservation& r = all[i];
@@ -403,33 +598,57 @@ void HotelSystem::handleRevenueByRoomType() {
 		else if (type == "apartment") apt += r.getTotalPrice();
 	}
 
+	std::cout << std::fixed << std::setprecision(2);
 	std::cout << "Revenue by type:\n";
-	std::cout << "Single: " << single << "\nDouble: " << dbl << "\nLuxury: " << lux
-		<< "\nConference: " << conf << "\nApartment: " << apt << "\n";
+	std::cout << "Single:     " << single << "\n";
+	std::cout << "Double:     " << dbl << "\n";
+	std::cout << "Luxury:     " << lux << "\n";
+	std::cout << "Conference: " << conf << "\n";
+	std::cout << "Apartment:  " << apt << "\n";
 
 	logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed revenue by room type");
 }
+
 void HotelSystem::handleExportRevenueReport() {
 	if (!hasAccess("accountant")) {
 		std::cout << "Access denied.\n";
 		return;
 	}
 
-	std::ofstream out("data/revenue_report.txt");
-	if (!out.is_open()) {
-		std::cout << "Failed to write report file.\n";
+	const MyVector<Reservation>& all = reservationManager.getAllReservations();
+	if (all.getSize() == 0) {
+		std::cout << "No reservations to export. Report not created.\n";
+		logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Tried to export empty revenue report");
 		return;
 	}
 
-	const MyVector<Reservation>& all = reservationManager.getAllReservations();
+	std::ofstream out("data/revenue_report.txt");
+	if (!out.is_open()) {
+		std::cout << "Failed to open file for writing: data/revenue_report.txt\n";
+		return;
+	}
+
+	bool success = true;
 	for (size_t i = 0; i < all.getSize(); i++) {
 		out << all[i] << '\n';
+		if (!out) {
+			success = false;
+			break;
+		}
 	}
 
 	out.close();
-	std::cout << "Report exported to data/revenue_report.txt\n";
-	logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Exported revenue report");
+
+	if (success) {
+		std::cout << "Report exported to data/revenue_report.txt\n";
+		logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Exported revenue report");
+	}
+	else {
+		std::cout << "An error occurred while writing the report.\n";
+		logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Failed to fully export revenue report");
+	}
 }
+
 void HotelSystem::handleMostBookedRoom() {
 	if (!hasAccess("accountant")) {
 		std::cout << "Access denied.\n";
@@ -437,11 +656,33 @@ void HotelSystem::handleMostBookedRoom() {
 	}
 
 	const MyVector<Reservation>& all = reservationManager.getAllReservations();
-	int roomBookings[1000] = { 0 };
+	if (all.getSize() == 0) {
+		std::cout << "No reservations found.\n";
+		logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed most booked room (0 reservations)");
+		return;
+	}
+
+	int maxRoomNumber = 0;
+	for (size_t i = 0; i < all.getSize(); i++) {
+		int rn = all[i].getRoomNumber();
+		if (rn > maxRoomNumber) {
+			maxRoomNumber = rn;
+		}
+	}
+
+	if (maxRoomNumber > 10000) {
+		std::cout << "Room number exceeds limit. Cannot calculate.\n";
+		logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Failed to view most booked room (too many rooms)");
+		return;
+	}
+
+	int* roomBookings = new int[maxRoomNumber + 1]();
 	int maxRoom = -1, maxCount = 0;
 
 	for (size_t i = 0; i < all.getSize(); i++) {
 		int rn = all[i].getRoomNumber();
+		if (rn < 0 || rn > maxRoomNumber) continue;
+
 		roomBookings[rn]++;
 		if (roomBookings[rn] > maxCount) {
 			maxCount = roomBookings[rn];
@@ -452,10 +693,13 @@ void HotelSystem::handleMostBookedRoom() {
 	if (maxRoom != -1)
 		std::cout << "Most booked room is #" << maxRoom << " with " << maxCount << " bookings.\n";
 	else
-		std::cout << "No reservations found.\n";
+		std::cout << "No valid room bookings found.\n";
+
+	delete[] roomBookings;
 
 	logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed most booked room");
 }
+
 void HotelSystem::handleViewActionLog() {
 	if (!hasAccess("manager")) {
 		std::cout << "Access denied.\n";
@@ -464,9 +708,18 @@ void HotelSystem::handleViewActionLog() {
 
 	std::ifstream in("data/logs.txt");
 	if (!in.is_open()) {
-		std::cout << "Log file not found.\n";
+		std::cout << "Log file not found. Please make sure 'data/logs.txt' exists.\n";
 		return;
 	}
+
+	in.seekg(0, std::ios::end);
+	if (in.tellg() == 0) {
+		std::cout << "Log file is empty.\n";
+		logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed empty action log");
+		in.close();
+		return;
+	}
+	in.seekg(0, std::ios::beg); 
 
 	std::cout << "\n--- Action Log ---\n";
 	char line[256];
@@ -477,6 +730,7 @@ void HotelSystem::handleViewActionLog() {
 	in.close();
 	logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed action log");
 }
+
 void HotelSystem::handleCancelReservation() {
 	if (!hasAccess("receptionist")) {
 		std::cout << "Access denied.\n";
@@ -484,37 +738,67 @@ void HotelSystem::handleCancelReservation() {
 	}
 
 	int resID;
-	std::cout << "Enter reservation ID to cancel: ";
-	std::cin >> resID;
+
+	while (true) {
+		std::cout << "Enter reservation ID to cancel: ";
+		std::cin >> resID;
+
+		if (std::cin.fail() || resID <= 0) {
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::cout << "Invalid reservation ID. Please enter a positive number.\n";
+			continue;
+		}
+
+		std::cin.ignore(); 
+		break;
+	}
 
 	if (reservationManager.cancelReservation(resID)) {
-		std::cout << "Reservation canceled.\n";
+		std::cout << "Reservation canceled successfully.\n";
 		logger.logAction(currentUser->getUsername(), currentUser->getRole(), MyString("Canceled reservation #") + resID);
 	}
 	else {
-		std::cout << "Reservation not found.\n";
+		std::cout << "Reservation with ID #" << resID << " not found or already canceled.\n";
 	}
 }
+
 void HotelSystem::handleSortedReservations() {
+	if (!hasAccess("manager") && !hasAccess("receptionist") && !hasAccess("accountant")) {
+		std::cout << "Access denied.\n";
+		return;
+	}
+
 	const MyVector<Reservation>& all = reservationManager.getAllReservations();
+	if (all.getSize() == 0) {
+		std::cout << "No reservations found.\n";
+		logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed sorted reservations (0 reservations)");
+		return;
+	}
 
 	MyVector<Reservation> sorted = all;
+
 	for (size_t i = 0; i < sorted.getSize(); i++) {
+		size_t minIdx = i;
 		for (size_t j = i + 1; j < sorted.getSize(); j++) {
-			if (sorted[j].getStartDate() < sorted[i].getStartDate()) {
-				Reservation tmp = sorted[i];
-				sorted[i] = sorted[j];
-				sorted[j] = tmp;
+			if (sorted[j].getStartDate() < sorted[minIdx].getStartDate()) {
+				minIdx = j;
 			}
+		}
+		if (minIdx != i) {
+			Reservation tmp = sorted[i];
+			sorted[i] = sorted[minIdx];
+			sorted[minIdx] = tmp;
 		}
 	}
 
-	std::cout << "\n--- Reservations Sorted by Date ---\n";
+	std::cout << "\n--- Reservations Sorted by Start Date ---\n";
 	for (size_t i = 0; i < sorted.getSize(); i++)
 		std::cout << sorted[i] << '\n';
 
 	logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed sorted reservations by date");
 }
+
 
 void HotelSystem::handleSortedRevenueByType() {
 	if (!hasAccess("accountant")) {
@@ -527,7 +811,8 @@ void HotelSystem::handleSortedRevenueByType() {
 		double revenue;
 	};
 
-	TypeRevenue types[5] = {
+	const int TYPE_COUNT = 5;
+	TypeRevenue types[TYPE_COUNT] = {
 		{"single", 0},
 		{"double", 0},
 		{"luxury", 0},
@@ -536,14 +821,18 @@ void HotelSystem::handleSortedRevenueByType() {
 	};
 
 	const MyVector<Reservation>& all = reservationManager.getAllReservations();
-
+	if (all.getSize() == 0) {
+		std::cout << "No reservations found.\n";
+		logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed sorted revenue by room type (0 reservations)");
+		return;
+	}
 	for (size_t i = 0; i < all.getSize(); i++) {
 		const Reservation& r = all[i];
 		Room* room = roomManager.findRoom(r.getRoomNumber());
 		if (!room) continue;
 
 		MyString type = room->getType();
-		for (int j = 0; j < 5; j++) {
+		for (int j = 0; j < TYPE_COUNT; j++) {
 			if (types[j].type == type) {
 				types[j].revenue += r.getTotalPrice();
 				break;
@@ -551,8 +840,8 @@ void HotelSystem::handleSortedRevenueByType() {
 		}
 	}
 
-	for (int i = 0; i < 5; i++) {
-		for (int j = i + 1; j < 5; j++) {
+	for (int i = 0; i < TYPE_COUNT; i++) {
+		for (int j = i + 1; j < TYPE_COUNT; j++) {
 			if (types[j].revenue > types[i].revenue) {
 				TypeRevenue temp = types[i];
 				types[i] = types[j];
@@ -561,48 +850,93 @@ void HotelSystem::handleSortedRevenueByType() {
 		}
 	}
 
-	std::cout << "--- Revenue by room type (sorted) ---\n";
-	for (int i = 0; i < 5; i++) {
-		std::cout << types[i].type.c_str() << ": " << types[i].revenue << "\n";
+	std::cout << std::fixed << std::setprecision(2);
+	std::cout << "--- Revenue by room type (sorted descending) ---\n";
+	for (int i = 0; i < TYPE_COUNT; i++) {
+		std::cout << types[i].type.c_str() << ": " << types[i].revenue << " units\n";
 	}
 
 	logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed sorted revenue by room type");
 }
+
 void HotelSystem::handleFindByID() {
 	int choice;
-	std::cout << "Find: 1. Guest  2. Reservation  3. Room\n> ";
-	std::cin >> choice;
+
+	while (true) {
+		std::cout << "Find: 1. Guest  2. Reservation  3. Room\n> ";
+		std::cin >> choice;
+
+		if (std::cin.fail() || choice < 1 || choice > 3) {
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::cout << "Invalid choice. Please enter 1, 2, or 3.\n";
+			continue;
+		}
+		break;
+	}
+
+	int id;
 
 	if (choice == 1) {
-		int id;
-		std::cout << "Enter guest ID: ";
-		std::cin >> id;
+		while (true) {
+			std::cout << "Enter guest ID: ";
+			std::cin >> id;
+
+			if (std::cin.fail() || id <= 0) {
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+				std::cout << "Invalid ID. Try again.\n";
+				continue;
+			}
+			break;
+		}
+
 		const Guest* g = guestManager.findGuestByID(id);
 		if (g) std::cout << *g << "\n";
 		else std::cout << "Guest not found.\n";
 	}
+
 	else if (choice == 2) {
-		int id;
-		std::cout << "Enter reservation ID: ";
-		std::cin >> id;
+		while (true) {
+			std::cout << "Enter reservation ID: ";
+			std::cin >> id;
+
+			if (std::cin.fail() || id <= 0) {
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+				std::cout << "Invalid ID. Try again.\n";
+				continue;
+			}
+			break;
+		}
+
 		const Reservation* r = reservationManager.findByID(id);
 		if (r) std::cout << *r << "\n";
 		else std::cout << "Reservation not found.\n";
 	}
+
 	else if (choice == 3) {
-		int roomNum;
-		std::cout << "Enter room number: ";
-		std::cin >> roomNum;
-		Room* r = roomManager.findRoom(roomNum);
+		while (true) {
+			std::cout << "Enter room number: ";
+			std::cin >> id;
+
+			if (std::cin.fail() || id <= 0) {
+				std::cin.clear();
+				std::cin.ignore(10000, '\n');
+				std::cout << "Invalid room number. Try again.\n";
+				continue;
+			}
+			break;
+		}
+
+		Room* r = roomManager.findRoom(id);
 		if (r) std::cout << *r << "\n";
 		else std::cout << "Room not found.\n";
-	}
-	else {
-		std::cout << "Invalid choice.\n";
 	}
 
 	logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Searched object by ID");
 }
+
 void HotelSystem::handleRevenueForPeriod() {
 	if (!hasAccess("accountant")) {
 		std::cout << "Access denied.\n";
@@ -610,30 +944,56 @@ void HotelSystem::handleRevenueForPeriod() {
 	}
 
 	Date from, to;
-	std::cout << "Enter start date (dd.mm.yyyy): ";
-	std::cin >> from;
 
-	std::cout << "Enter end date (dd.mm.yyyy): ";
-	std::cin >> to;
+	while (true) {
+		std::cout << "Enter start date (dd.mm.yyyy): ";
+		std::cin >> from;
 
-	if (!from.isValid() || !to.isValid() || !(from < to)) {
-		std::cout << "Invalid date range.\n";
+		if (!from.isValid()) {
+			std::cout << "Invalid start date. Try again.\n";
+			continue;
+		}
+		break;
+	}
+
+	while (true) {
+		std::cout << "Enter end date (dd.mm.yyyy): ";
+		std::cin >> to;
+
+		if (!to.isValid()) {
+			std::cout << "Invalid end date. Try again.\n";
+			continue;
+		}
+		if (!(from < to)) {
+			std::cout << "End date must be after start date. Try again.\n";
+			continue;
+		}
+		break;
+	}
+
+	const MyVector<Reservation>& all = reservationManager.getAllReservations();
+	if (all.getSize() == 0) {
+		std::cout << "No reservations found.\n";
+		logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed revenue for period (0 reservations)");
 		return;
 	}
 
 	double total = 0.0;
-	const MyVector<Reservation>& all = reservationManager.getAllReservations();
 
 	for (size_t i = 0; i < all.getSize(); i++) {
 		const Reservation& r = all[i];
+
 		if (!(r.getEndDate() <= from || r.getStartDate() >= to)) {
 			total += r.getTotalPrice();
 		}
 	}
 
-	std::cout << "Revenue from " << from << " to " << to << ": " << total << "\n";
+	std::cout << std::fixed << std::setprecision(2);
+	std::cout << "Revenue from " << from << " to " << to << ": " << total << " units\n";
+
 	logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed revenue for period");
 }
+
 void HotelSystem::handleRoomsByOccupancy() {
 	if (!hasAccess("accountant")) {
 		std::cout << "Access denied.\n";
@@ -648,6 +1008,12 @@ void HotelSystem::handleRoomsByOccupancy() {
 	MyVector<RoomStat> stats;
 	const MyVector<Reservation>& all = reservationManager.getAllReservations();
 
+	if (all.getSize() == 0) {
+		std::cout << "No reservations found.\n";
+		logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed rooms sorted by occupancy (0 reservations)");
+		return;
+	}
+
 	for (size_t i = 0; i < all.getSize(); i++) {
 		int rn = all[i].getRoomNumber();
 		bool found = false;
@@ -659,37 +1025,29 @@ void HotelSystem::handleRoomsByOccupancy() {
 			}
 		}
 		if (!found) {
-			RoomStat s = { rn, 1 };
-			stats.push_back(s);
+			stats.push_back({ rn, 1 });
 		}
 	}
 
 	for (size_t i = 0; i < stats.getSize(); i++) {
+		size_t maxIdx = i;
 		for (size_t j = i + 1; j < stats.getSize(); j++) {
-			if (stats[j].count > stats[i].count) {
-				RoomStat tmp = stats[i];
-				stats[i] = stats[j];
-				stats[j] = tmp;
+			if (stats[j].count > stats[maxIdx].count) {
+				maxIdx = j;
 			}
+		}
+		if (maxIdx != i) {
+			RoomStat tmp = stats[i];
+			stats[i] = stats[maxIdx];
+			stats[maxIdx] = tmp;
 		}
 	}
 
 	std::cout << "--- Rooms sorted by occupancy ---\n";
 	for (size_t i = 0; i < stats.getSize(); i++) {
-		std::cout << "Room #" << stats[i].roomNumber << ": " << stats[i].count << " reservations\n";
+		std::cout << "Room #" << stats[i].roomNumber << ": " << stats[i].count << " reservation"
+			<< (stats[i].count != 1 ? "s" : "") << "\n";
 	}
 
 	logger.logAction(currentUser->getUsername(), currentUser->getRole(), "Viewed rooms sorted by occupancy");
 }
-
-
-
-
-
-
-
-
-
-
-
-

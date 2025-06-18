@@ -51,3 +51,86 @@
 [2025-06-18 18:54:49] (Role: manager) admin: Logged in
 [2025-06-18 18:54:52] (Role: manager) admin: Viewed all rooms
 [2025-06-18 18:55:17] (Role: manager) admin: Logged in
+[2025-06-18 18:57:42] (Role: manager) admin: Logged in
+[2025-06-18 18:57:44] (Role: manager) admin: Viewed all rooms
+[2025-06-18 19:07:07] (Role: manager) admin: Logged in
+[2025-06-18 19:08:24] (Role: manager) admin: Logged in
+[2025-06-18 19:08:57] (Role: manager) admin: Added room #3
+[2025-06-18 19:08:59] (Role: manager) admin: Viewed all rooms
+[2025-06-18 19:33:12] (Role: manager) admin: Logged in
+[2025-06-18 19:33:14] (Role: manager) admin: Viewed all rooms
+[2025-06-18 19:38:34] (Role: manager) admin: Logged in
+[2025-06-18 19:39:00] (Role: manager) admin: Added guest: ivan
+[2025-06-18 19:39:05] (Role: manager) admin: Viewed all guests
+[2025-06-18 19:39:48] (Role: manager) admin: Created reservation for guest ID 1
+[2025-06-18 19:39:55] (Role: manager) admin: Viewed all reservations
+[2025-06-18 19:40:09] (Role: manager) admin: Viewed total revenue
+[2025-06-18 19:40:15] (Role: manager) admin: Viewed revenue by room type
+[2025-06-18 19:40:22] (Role: manager) admin: Exported revenue report
+[2025-06-18 19:40:48] (Role: manager) admin: Viewed most booked room
+[2025-06-18 19:40:58] (Role: manager) admin: Viewed action log
+[2025-06-18 19:41:20] (Role: manager) admin: Canceled reservation #1
+[2025-06-18 19:41:24] (Role: manager) admin: Viewed all reservations
+[2025-06-18 19:41:51] (Role: manager) admin: Created reservation for guest ID 1
+[2025-06-18 19:42:03] (Role: manager) admin: Viewed sorted reservations by date
+[2025-06-18 19:42:17] (Role: manager) admin: Viewed sorted revenue by room type
+[2025-06-18 19:42:40] (Role: manager) admin: Searched object by ID
+[2025-06-18 19:42:47] (Role: manager) admin: Searched object by ID
+[2025-06-18 19:42:55] (Role: manager) admin: Searched object by ID
+[2025-06-18 19:43:26] (Role: manager) admin: Viewed revenue for period
+[2025-06-18 19:43:58] (Role: manager) admin: Viewed rooms sorted by occupancy
+[2025-06-18 19:44:02] (Role: manager) admin: Exited system
+[2025-06-18 19:52:02] (Role: manager) admin: Logged in
+[2025-06-18 19:52:26] (Role: manager) admin: Viewed all guests
+[2025-06-18 19:52:32] (Role: manager) admin: Viewed all reservations
+[2025-06-18 19:53:02] (Role: manager) admin: Viewed revenue for period
+[2025-06-18 19:55:12] (Role: manager) admin: Viewed all rooms
+[2025-06-18 19:55:28] (Role: manager) admin: Viewed all rooms
+[2025-06-18 19:55:37] (Role: manager) admin: Viewed all reservations
+[2025-06-18 19:55:40] (Role: manager) admin: Viewed all guests
+[2025-06-18 19:58:45] (Role: manager) admin: Logged in
+[2025-06-18 19:59:08] (Role: manager) admin: Added guest: ivan
+[2025-06-18 19:59:34] (Role: manager) admin: Added guest: petar
+[2025-06-18 19:59:38] (Role: manager) admin: Viewed all guests
+[2025-06-18 19:59:50] (Role: manager) admin: Viewed all rooms
+[2025-06-18 20:00:07] (Role: manager) admin: Changed pricing strategy
+[2025-06-18 20:00:56] (Role: manager) admin: Created reservation for guest ID 2
+[2025-06-18 20:01:18] (Role: manager) admin: Viewed all reservations
+[2025-06-18 20:01:37] (Role: manager) admin: Changed pricing strategy
+[2025-06-18 20:02:28] (Role: manager) admin: Changed status of room #2
+[2025-06-18 20:02:33] (Role: manager) admin: Viewed all reservations
+[2025-06-18 20:02:49] (Role: manager) admin: Changed status of room #2
+[2025-06-18 20:03:11] (Role: manager) admin: Created reservation for guest ID 1
+[2025-06-18 20:03:16] (Role: manager) admin: Viewed all reservations
+[2025-06-18 20:03:49] (Role: manager) admin: Viewed all rooms
+[2025-06-18 20:04:14] (Role: manager) admin: Changed status of room #2
+[2025-06-18 20:04:18] (Role: manager) admin: Viewed all rooms
+[2025-06-18 20:06:36] (Role: manager) admin: Logged in
+[2025-06-18 20:06:40] (Role: manager) admin: Viewed all reservations
+[2025-06-18 20:07:45] (Role: manager) admin: Logged in
+[2025-06-18 20:07:58] (Role: manager) admin: Viewed all reservations
+[2025-06-18 20:08:20] (Role: manager) admin: Created reservation for guest ID 1
+[2025-06-18 20:12:48] (Role: manager) admin: Logged in
+[2025-06-18 20:12:52] (Role: manager) admin: Viewed all reservations
+[2025-06-18 20:13:17] (Role: manager) admin: Logged in
+[2025-06-18 20:13:19] (Role: manager) admin: Viewed all reservations
+[2025-06-18 20:28:32] (Role: manager) admin: Logged in
+[2025-06-18 20:28:50] (Role: manager) admin: Created reservation for guest ID 2
+[2025-06-18 20:28:55] (Role: manager) admin: Viewed all reservations
+[2025-06-18 20:33:44] (Role: manager) admin: Logged in
+[2025-06-18 20:33:47] (Role: manager) admin: Viewed all reservations
+[2025-06-18 20:34:05] (Role: manager) admin: Viewed all rooms
+[2025-06-18 20:34:09] (Role: manager) admin: Viewed all guests
+[2025-06-18 20:34:50] (Role: manager) admin: Created reservation for guest ID 3
+[2025-06-18 20:34:57] (Role: manager) admin: Viewed all reservations
+[2025-06-18 20:35:31] (Role: accountant) georgi: Logged in
+[2025-06-18 20:35:41] (Role: accountant) georgi: Viewed all rooms
+[2025-06-18 20:35:51] (Role: accountant) georgi: Viewed all guests
+[2025-06-18 20:35:53] (Role: accountant) georgi: Viewed all reservations
+[2025-06-18 20:35:56] (Role: accountant) georgi: Viewed total revenue
+[2025-06-18 20:36:02] (Role: accountant) georgi: Viewed revenue by room type
+[2025-06-18 20:36:14] (Role: accountant) georgi: Viewed most booked room
+[2025-06-18 20:36:28] (Role: accountant) georgi: Exited system
+[2025-06-18 20:36:37] (Role: manager) admin: Logged in
+[2025-06-18 20:36:40] (Role: manager) admin: Viewed most booked room
+[2025-06-18 20:36:43] (Role: manager) admin: Viewed action log

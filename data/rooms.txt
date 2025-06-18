@@ -1,3 +1,4 @@
 luxury,1,free,1000
-conference,2,free,500
+conference,2,reserved,500
 apartment,6,free,10000
+conference,3,free,1000

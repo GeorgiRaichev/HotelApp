@@ -27,7 +27,11 @@ public:
     bool operator<=(const Date& other) const;
     bool operator>(const Date& other) const;
     bool operator>=(const Date& other) const;
+    Date& operator++();
+    Date operator++(int);
+
 
     friend std::ostream& operator<<(std::ostream& os, const Date& date);
     friend std::istream& operator>>(std::istream& is, Date& date);
+    int dayOfWeek() const;
 };

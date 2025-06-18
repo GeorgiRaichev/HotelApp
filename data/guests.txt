@@ -1,0 +1,3 @@
+ivan,0897862699,georgi@abv.bg,1,regular
+ivan,1234567891,a@avc.vf,2,gold
+petar,1232123234,e@abv.bg,3,platinum
