@@ -38,7 +38,8 @@ void ReservationManager::saveReservations() const {
     }
 
     for (size_t i = 0; i < reservations.getSize(); i++) {
-        out << reservations[i] << '\n';
+        reservations[i].print(out);
+        out << '\n';
     }
 
     out.close();

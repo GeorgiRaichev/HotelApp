@@ -28,13 +28,24 @@ int Reservation::getNights() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Reservation& res) {
-    os << res.reservationID << ','
-        << res.guestID << ','
-        << res.roomNumber << ','
-        << res.startDate << ','
-        << res.endDate << ','
-        << res.totalPrice;
+    if (&os == &std::cout)
+        res.display(os);
+    else
+        res.print(os);
     return os;
+}
+void Reservation::display(std::ostream& os) const {
+    os << "Reservation #" << reservationID
+        << " | Guest ID: " << guestID
+        << " | Room: " << roomNumber
+        << " | From: " << startDate
+        << " to " << endDate
+        << " | Total: " << totalPrice;
+}
+
+void Reservation::print(std::ostream& os) const {
+    os << reservationID << ',' << guestID << ',' << roomNumber << ','
+        << startDate << ',' << endDate << ',' << totalPrice;
 }
 
 std::istream& operator>>(std::istream& is, Reservation& res) {

@@ -10,3 +10,44 @@
 [2025-06-18 17:51:02] (Role: manager) admin: Viewed all rooms
 [2025-06-18 17:51:23] (Role: manager) admin: Added room #5
 [2025-06-18 17:51:27] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:28:11] (Role: manager) admin: Logged in
+[2025-06-18 18:28:22] (Role: manager) admin: Logged in
+[2025-06-18 18:28:26] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:28:37] (Role: manager) admin: Added room #1
+[2025-06-18 18:28:39] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:28:50] (Role: manager) admin: Logged in
+[2025-06-18 18:28:52] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:29:29] (Role: manager) admin: Logged in
+[2025-06-18 18:29:31] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:34:41] (Role: manager) admin: Logged in
+[2025-06-18 18:34:44] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:34:50] (Role: manager) admin: Added room #1
+[2025-06-18 18:34:53] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:35:02] (Role: manager) admin: Logged in
+[2025-06-18 18:35:04] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:35:18] (Role: manager) admin: Logged in
+[2025-06-18 18:35:19] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:39:21] (Role: manager) admin: Logged in
+[2025-06-18 18:39:28] (Role: manager) admin: Added room #1
+[2025-06-18 18:39:29] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:39:30] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:39:31] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:39:49] (Role: manager) admin: Logged in
+[2025-06-18 18:39:52] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:46:40] (Role: manager) admin: Logged in
+[2025-06-18 18:46:48] (Role: manager) admin: Added room #1
+[2025-06-18 18:46:49] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:47:28] (Role: manager) admin: Logged in
+[2025-06-18 18:47:29] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:49:31] (Role: manager) admin: Logged in
+[2025-06-18 18:49:42] (Role: manager) admin: Added room #1
+[2025-06-18 18:49:44] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:53:56] (Role: manager) admin: Logged in
+[2025-06-18 18:53:58] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:54:21] (Role: manager) admin: Added room #2
+[2025-06-18 18:54:23] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:54:38] (Role: manager) admin: Added room #6
+[2025-06-18 18:54:39] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:54:49] (Role: manager) admin: Logged in
+[2025-06-18 18:54:52] (Role: manager) admin: Viewed all rooms
+[2025-06-18 18:55:17] (Role: manager) admin: Logged in

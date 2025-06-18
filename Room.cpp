@@ -21,26 +21,34 @@ double Room::getBasePrice() const { return basePrice; }
 void Room::setStatus(const MyString& newStatus) { status = newStatus; }
 void Room::setBasePrice(double newPrice) { basePrice = newPrice; }
 
-void Room::print(std::ostream& os) const {
+void Room::display(std::ostream& os) const {
     os << "Room #" << roomNumber
         << " [" << getType().c_str() << "]"
         << " - Status: " << status.c_str()
         << " - Price: " << basePrice;
 }
 
+void Room::print(std::ostream& os) const {
+    os << getType().c_str() << ',' << roomNumber << ',' << status.c_str() << ',' << basePrice;
+}
+
 void Room::read(std::istream& is) {
     char statusBuf[64];
     is >> roomNumber;
-    is.ignore(); 
+    is.ignore();
     is.getline(statusBuf, 64, ',');
     is >> basePrice;
     status = MyString(statusBuf);
 }
 
 std::ostream& operator<<(std::ostream& os, const Room& room) {
-    room.print(os);
+    if (&os == &std::cout)
+        room.display(os);
+    else
+        room.print(os);
     return os;
 }
+
 
 std::istream& operator>>(std::istream& is, Room*& room) {
     char typeBuf[32];

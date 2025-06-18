@@ -39,8 +39,10 @@ void GuestManager::saveGuests() const {
     }
 
     for (size_t i = 0; i < guests.getSize(); i++) {
-        out << guests[i] << '\n';
+        guests[i].print(out);
+        out << '\n';
     }
+
 
     out.close();
 }

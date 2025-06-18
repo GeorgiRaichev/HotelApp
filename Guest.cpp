@@ -24,11 +24,24 @@ bool Guest::isValidStatus() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Guest& guest) {
-    return os << guest.name.c_str() << ','
-        << guest.phone.c_str() << ','
-        << guest.email.c_str() << ','
-        << guest.clientID << ','
-        << guest.status.c_str();
+    if (&os == &std::cout)
+        guest.display(os);
+    else
+        guest.print(os);
+    return os;
+}
+
+void Guest::display(std::ostream& os) const {
+    os << "Guest #" << clientID
+        << " - Name: " << name.c_str()
+        << " | Phone: " << phone.c_str()
+        << " | Email: " << email.c_str()
+        << " | Status: " << status.c_str();
+}
+
+void Guest::print(std::ostream& os) const {
+    os << name.c_str() << ',' << phone.c_str() << ',' << email.c_str()
+        << ',' << clientID << ',' << status.c_str();
 }
 
 std::istream& operator>>(std::istream& is, Guest& guest) {

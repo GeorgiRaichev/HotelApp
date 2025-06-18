@@ -30,4 +30,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Guest& guest);
     friend std::istream& operator>>(std::istream& is, Guest& guest);
+
+    void display(std::ostream& os) const;
+    void print(std::ostream& os) const;
 };

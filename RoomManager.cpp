@@ -49,33 +49,26 @@ void RoomManager::loadRooms() {
     }
 
     free(); 
-
     char typeBuf[32];
 
     while (in.peek() != EOF) {
-        in.getline(typeBuf, 32, ',');
-        Room* room = createRoomByType(MyString(typeBuf));
+        in.getline(typeBuf, 32, ','); 
+
+        Room* room = createRoomByType(typeBuf);
         if (!room) {
             std::cerr << "Unknown room type: " << typeBuf << " – skipping line.\n";
-            in.ignore(1024, '\n');
+            in.ignore(1024, '\n'); 
             continue;
         }
 
-        if (in.good()) {
-            room->read(in);
-            rooms.push_back(room);
-            in.ignore(1);
-        }
-        else {
-            delete room;
-            std::cerr << "Error reading room – skipping line.\n";
-            in.clear();
-            in.ignore(1024, '\n');
-        }
+        room->read(in);           
+        rooms.push_back(room);
+        in.ignore(1);             
     }
-
     in.close();
 }
+
+
 
 
 void RoomManager::saveRooms() const {
@@ -86,7 +79,8 @@ void RoomManager::saveRooms() const {
     }
 
     for (size_t i = 0; i < rooms.getSize(); i++) {
-        out << *rooms[i] << '\n';
+        rooms[i]->print(out); 
+        out << '\n';
     }
 
     out.close();

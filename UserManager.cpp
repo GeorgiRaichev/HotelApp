@@ -40,7 +40,8 @@ void UserManager::saveUsers() const {
     }
 
     for (size_t i = 0; i < users.getSize(); i++) {
-        out << users[i] << '\n';
+        users[i].print(out);
+        out << '\n';
     }
 
     out.close();

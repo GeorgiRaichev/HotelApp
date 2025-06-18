@@ -27,6 +27,7 @@ public:
 
     virtual Room* clone() const = 0;
 
+    virtual void display(std::ostream& os) const;
     virtual void print(std::ostream& os) const;
     virtual void read(std::istream& is);
 

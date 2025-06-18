@@ -32,7 +32,6 @@ void SingleRoom::print(std::ostream& os) const {
     Room::print(os); 
 }
 
-
 void SingleRoom::read(std::istream& is) {
     Room::read(is);
 }

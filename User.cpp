@@ -25,10 +25,22 @@ bool User::isValidRole() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const User& user) {
-    return os << user.username.c_str() << ','
-        << user.password.c_str() << ','
-        << user.role.c_str();
+    if (&os == &std::cout)
+        user.display(os);
+    else
+        user.print(os);
+    return os;
 }
+
+void User::display(std::ostream& os) const {
+    os << "Username: " << username.c_str()
+        << " | Role: " << role.c_str();
+}
+
+void User::print(std::ostream& os) const {
+    os << username.c_str() << ',' << password.c_str() << ',' << role.c_str();
+}
+
 
 std::istream& operator>>(std::istream& is, User& user) {
     char usernameBuf[128], passwordBuf[128], roleBuf[128];

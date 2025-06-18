@@ -26,4 +26,7 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const User& user);
     friend std::istream& operator>>(std::istream& is, User& user);
+
+    void display(std::ostream& os) const;
+    void print(std::ostream& os) const;
 };

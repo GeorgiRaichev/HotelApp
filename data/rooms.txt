@@ -1,2 +1,3 @@
-Room #1 [single] - Status: free - Price: 100
-Room #5 [luxury] - Status: free - Price: 500
+luxury,1,free,1000
+conference,2,free,500
+apartment,6,free,10000
