@@ -134,6 +134,7 @@
     <ClCompile Include="DoubleRoom.cpp" />
     <ClCompile Include="Guest.cpp" />
     <ClCompile Include="GuestManager.cpp" />
+    <ClCompile Include="HotelSystem.cpp" />
     <ClCompile Include="LuxuryRoom.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyString.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="DoubleRoom.h" />
     <ClInclude Include="Guest.h" />
     <ClInclude Include="GuestManager.h" />
+    <ClInclude Include="HotelSystem.h" />
     <ClInclude Include="LuxuryRoom.h" />
     <ClInclude Include="MyString.h" />
     <ClInclude Include="MyVector.h" />

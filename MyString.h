@@ -28,8 +28,12 @@ public:
 
     bool operator==(const MyString& other) const;
     bool operator!=(const MyString& other) const;
+    MyString operator+(const MyString& other) const;
+    MyString operator+(const char* other) const;
+    MyString operator+(int number) const;
 
     friend std::ostream& operator<<(std::ostream& os, const MyString& str);
     friend std::istream& operator>>(std::istream& is, MyString& str);
+
 };
 

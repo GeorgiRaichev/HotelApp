@@ -14,6 +14,9 @@
     <Filter Include="managers">
       <UniqueIdentifier>{58032341-c30a-46ba-b4f7-21920bbace80}</UniqueIdentifier>
     </Filter>
+    <Filter Include="system">
+      <UniqueIdentifier>{a828b2b4-9eda-47f3-96d0-24b34d92bc2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -73,6 +76,9 @@
     <ClCompile Include="ReservationManager.cpp">
       <Filter>managers</Filter>
     </ClCompile>
+    <ClCompile Include="HotelSystem.cpp">
+      <Filter>system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyString.h">
@@ -122,6 +128,9 @@
     </ClInclude>
     <ClInclude Include="Reservation.h">
       <Filter>models</Filter>
+    </ClInclude>
+    <ClInclude Include="HotelSystem.h">
+      <Filter>system</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

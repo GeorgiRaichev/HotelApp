@@ -100,3 +100,24 @@ std::istream& operator>>(std::istream& is, MyString& str) {
     str = MyString(buffer);
     return is;
 }
+
+MyString MyString::operator+(const MyString& other) const {
+    size_t newLength = length + other.length;
+    char* newData = new char[newLength + 1];
+
+    std::strcpy(newData, data);
+    std::strcat(newData, other.data);
+
+    MyString result(newData);
+    delete[] newData;
+
+    return result;
+}
+MyString MyString::operator+(const char* other) const {
+    return *this + MyString(other);
+}
+MyString MyString::operator+(int number) const {
+    char buffer[32];
+    std::sprintf(buffer, "%d", number);
+    return *this + MyString(buffer);
+}
